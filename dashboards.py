@@ -13,6 +13,8 @@ app = Dash(__name__)
 # see https://plotly.com/python/px-arguments/ for more options
 # Cria a tabela, base de dados.
 df = pd.read_excel("Vendas.xlsx")
+opcoes = list(df['ID Loja'].unique())
+opcoes.append("Todas as Lojas")
 
 # Criando o gráfico
 fig = px.bar(df, x="Produto", y="Quantidade", color="ID Loja", barmode="group")
@@ -26,10 +28,11 @@ app.layout = html.Div(children=[
     '''),
 
     dcc.Graph(
-        id='example-graph',
+        id='grafico_quantidade_vendas',
         figure=fig
     )
 ])
 
+
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run_server(debug=True)
