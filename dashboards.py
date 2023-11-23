@@ -27,6 +27,9 @@ app.layout = html.Div(children=[
         Obs: Esse gráfico mostra a quantidade de produtos vendidos, não o faturamento.
     '''),
 
+    # Botão para lista
+    dcc.Dropdown(opcoes, value='Todas as Lojas', id='lista_lojas'),
+
     dcc.Graph(
         id='grafico_quantidade_vendas',
         figure=fig
