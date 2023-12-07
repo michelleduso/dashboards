@@ -2,7 +2,7 @@
 # visit http://127.0.0.1:8050/ in your web browser.
 
 
-from dash import Dash, html, dcc
+from dash import Dash, html, dcc, Output, Input
 import plotly.express as px
 import pandas as pd
 
@@ -36,6 +36,20 @@ app.layout = html.Div(children=[
     )
 ])
 
+@app.callback(
+    Output('grafico_quantidade_vendas', 'figure'),
+    Input('lista_lojas', 'value')
+)
+
+def update_output(value):
+    if value == "Todas as Lojas":
+        fig = px.bar(df, x="Produto", y="Quantidade", color="ID Loja", barmode="group")
+    else:
+        tabela_filtrada = df.loc[df['ID Loja']==value, :]
+        fig = px.bar(tabela_filtrada, x="Produto", y="Quantidade", color="ID Loja", barmode="group")
+    return fig
+
 
 if __name__ == '__main__':
     app.run_server(debug=True)
+
